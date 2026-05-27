@@ -1,0 +1,163 @@
+<template>
+    <div class="app-container slds-var-m-around_small">
+        
+        <div class="slds-grid slds-gutters slds-wrap slds-var-m-bottom_large">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-var-m-bottom_small">
+                <div class="welcome-banner">
+                    <h1>The To-Do Manager </h1>
+                    <p class="subtitle">Organize, track, and execute your day-to-day operations.</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="stat-card mini-card-blue">
+                            <span class="stat-num">{incompletetask.length}</span>
+                            <span class="stat-label">In Complete Task</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="stat-card mini-card-green">
+                            <span class="stat-num">{completetask.length}</span>
+                            <span class="stat-label">Completed Task</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-gutters slds-wrap">
+            
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-var-m-bottom_medium">
+                <div class="glass-card slds-var-p-around_large">
+                    <div class="workspace-header slds-var-m-bottom_large">
+                        <lightning-icon icon-name="standard:service_appointment" size="medium"></lightning-icon>
+                        <div class="slds-var-m-left_small">
+                            <h2>Task Engine</h2>
+                            <p class="subtitle">Operational Command Center</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <lightning-input 
+                            label="What needs completion?" 
+                            placeholder="e.g., Finalize Q3 Audit Reports..." 
+                            required 
+                            onchange={changeHandler} 
+                            name="taskname"
+                            value={taskname} 
+                            class="taskname modern-input">
+                        </lightning-input> 
+                    </div>
+
+                    <div class="form-group slds-var-m-top_medium">
+                        <lightning-input 
+                            type="date" 
+                            name="taskdate" 
+                            label="Target Execution Deadline"
+                            value={taskdate} 
+                            onchange={changeHandler}
+                            class="modern-input">
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_large">
+                        <button class="btn-secondary" onclick={resetHandler}>Reset Form</button>
+                        <button class="btn-primary" onclick={addTaskHandler}>Deploy Task</button>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                <div class="main-ledger-card">
+                    <div class="tabs-row-container">
+                        <div class="tabs-left-side">
+                            <button class={activeQueueTabClass} onclick={handleToggleActiveTab}>
+                                Active Queue
+                            </button>
+                            <button class={activeArchiveTabClass} onclick={handleToggleArchiveTab}>
+                                Completed Ledger
+                            </button>
+                        </div>
+                        <div class="tabs-right-side">
+                            <template if:true={showClearAllButton}>
+                                <button class="btn-clear-all" onclick={handleClearAllCompleted}>
+                                    Clear Finished Task
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="ledger-content-frame">
+                        
+                        <template if:true={isQueueTabVisible}>
+                            <div class="scroll-wrapper">
+                                <template if:true={hasIncompleteTasks}>
+                                    <template for:each={incompletetask} for:item="item">
+                                        <div key={item.taskId} class="ledger-row-item slds-grid slds-grid_vertical-align-center">
+                                            <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                                                <button class="checkbox-trigger" onclick={completeTaskHandler} name={item.taskId} title="Mark Executed"></button>
+                                            </div>
+                                            <div class="slds-col slds-size_8-of-12">
+                                                <p class="row-main-title">{item.taskname}</p>
+                                                <div class="row-meta-tags">
+                                                    <span class="meta-pill text-indigo">
+                                                        Due: <lightning-formatted-date-time value={item.taskdate} month="short" day="2-digit" year="numeric"></lightning-formatted-date-time>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_3-of-12 slds-text-align_right">
+                                                <lightning-button-icon icon-name="utility:delete" variant="bare" alternative-text="Delete permanently" onclick={removeHandler} name={item.taskId} class="action-trash-btn"></lightning-button-icon>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template if:false={hasIncompleteTasks}>
+                                    <div class="empty-state-frame">
+                                        <lightning-icon icon-name="utility:success" size="large"></lightning-icon>
+                                        <h3>Your queue is completely empty</h3>
+                                        <p>Enjoy the calm or deploy a brand-new tracking initiative using the workspace panel.</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <template if:true={isArchiveTabVisible}>
+                            <div class="scroll-wrapper">
+                                <template if:true={hasCompleteTasks}>
+                                    <template for:each={completetask} for:item="item">
+                                        <div key={item.taskId} class="ledger-row-item slds-grid slds-grid_vertical-align-center">
+                                            <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                                                <lightning-icon icon-name="utility:check" size="xx-small" variant="success"></lightning-icon>
+                                            </div>
+                                            <div class="slds-col slds-size_8-of-12">
+                                                <p class="row-main-title strike-text">{item.taskname}</p>
+                                                <div class="row-meta-tags">
+                                                    <span class="meta-pill text-emerald"> Verified Complete </span>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_3-of-12 slds-text-align_right">
+                                                <lightning-button-icon icon-name="utility:delete" variant="bare" alternative-text="Wipe Permanently" onclick={removeCompletedHandler} name={item.taskId} class="action-trash-btn"></lightning-button-icon>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template if:false={hasCompleteTasks}>
+                                    <div class="empty-state-frame">
+                                        <lightning-icon icon-name="utility:share_file" size="large"></lightning-icon>
+                                        <h3>No history recorded yet</h3>
+                                        <p>Items checked off your active queue will generate immutable validation logs inside this panel.</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

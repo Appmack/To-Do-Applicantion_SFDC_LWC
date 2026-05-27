@@ -1,0 +1,267 @@
+/* Container Base Styles */
+.app-container {
+    background: #f8fafc;
+    padding: 28px;
+    border-radius: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Premium Header Banner */
+.welcome-banner h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+}
+.welcome-banner .subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* Operational Dashboard Metric Counters */
+.stat-card {
+    padding: 16px 20px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+.mini-card-blue {
+    background: linear-gradient(135deg, #e0e7ff 0%, #eef2ff 100%);
+    border: 1px solid #c7d2fe;
+}
+.mini-card-blue .stat-num { color: #4338ca; }
+
+.mini-card-green {
+    background: linear-gradient(135deg, #d1fae5 0%, #f0fdf4 100%);
+    border: 1px solid #a7f3d0;
+}
+.mini-card-green .stat-num { color: #047857; }
+
+.stat-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 4px;
+}
+
+/* Glassmorphism Control Panel Workspace Card */
+.glass-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03);
+}
+
+.workspace-header {
+    display: flex;
+    align-items: center;
+}
+.workspace-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.1;
+}
+.workspace-header .subtitle {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Workspace Actions Button Set Override Layouts */
+.btn-primary {
+    background: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-primary:hover {
+    background: #4338ca;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.btn-secondary:hover {
+    background: #f8fafc;
+    color: #334155;
+}
+
+/* Metric Progress Tracker Elements */
+.metric-label { font-size: 0.75rem; font-weight: 600; color: #64748b; }
+.metric-value { font-size: 0.85rem; font-weight: 700; color: #4f46e5; }
+.progress-bar-container {
+    width: 100%;
+    height: 7px;
+    background: #e2e8f0;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    width: var(--progress-width, 0%);
+    background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+    border-radius: 9999px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Right Side Ledger Tracking Panel Card Wrapper */
+.main-ledger-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03);
+    min-height: 480px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation System Control Bar */
+.tabs-row-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 24px;
+}
+.tabs-left-side { display: flex; gap: 12px; }
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.tab-btn.active-tab {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.04);
+}
+
+.btn-clear-all {
+    background: transparent;
+    border: 1px dashed #fca5a5;
+    color: #ef4444;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.btn-clear-all:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+}
+
+/* Inner Ledger Scrolling Container Zone */
+.ledger-content-frame {
+    flex-grow: 1;
+    padding: 24px;
+    background: #ffffff;
+}
+.scroll-wrapper {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.ledger-row-item {
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+.ledger-row-item:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.row-main-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+.strike-text {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
+
+/* Custom Interactive Smooth Checkbox physics */
+.checkbox-trigger {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.checkbox-trigger:hover {
+    border-color: #10b981;
+    background: #f0fdf4;
+    transform: scale(1.05);
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+.text-indigo { background: #e0e7ff; color: #4338ca; }
+.text-emerald { background: #d1fae5; color: #065f46; }
+
+/* Empty Layout Frames Configuration */
+.empty-state-frame {
+    text-align: center;
+    padding: 50px 20px;
+}
+.empty-state-frame h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+    margin-top: 12px;
+}
+.empty-state-frame p {
+    font-size: 0.8rem;
+    color: #64748b;
+    max-width: 320px;
+    margin: 4px auto 0;
+}
+.action-trash-btn { color: #94a3b8; }
+.action-trash-btn:hover { color: #ef4444; }
+.action-btn-spacing { margin-left: 4px; }
